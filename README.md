@@ -30,26 +30,26 @@ The pipeline scores each destination by weather (temperature, rain, precipitatio
 ```mermaid
 flowchart LR
     subgraph Extract
-        A[35 French cities] --> B[Nominatim\nGeocoding]
-        A --> C[Open-Meteo\n7-day forecast]
-        A --> D[Overpass API\nOSM hotels]
+        A[35 French cities] --> B[Nominatim Geocoding]
+        A --> C[Open-Meteo 7-day forecast]
+        A --> D[Overpass API OSM hotels]
     end
 
     subgraph Transform
-        B & C & D --> E[Score &\nRank]
+        B & C & D --> E[Score and Rank]
         E --> F[cities_enriched.csv]
         E --> G[top_hotels.csv]
     end
 
-    subgraph Load — optional
-        F & G --> H[(AWS S3\ndatalake)]
-        H --> I[(AWS RDS\nPostgreSQL)]
-        I --> J[dim_destinations\nfact_hotels]
+    subgraph Load
+        F & G --> H[AWS S3 datalake]
+        H --> I[AWS RDS PostgreSQL]
+        I --> J[dim_destinations / fact_hotels]
     end
 
     style Extract fill:#E6F1FB,stroke:#185FA5
     style Transform fill:#EAF3DE,stroke:#3B6D11
-    style Load — optional fill:#FAEEDA,stroke:#854F0B
+    style Load fill:#FAEEDA,stroke:#854F0B
 ```
 
 **Scoring formulas:**
