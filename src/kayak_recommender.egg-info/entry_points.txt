@@ -1,0 +1,2 @@
+[console_scripts]
+kayak-pipeline = kayak.pipeline:run_pipeline
