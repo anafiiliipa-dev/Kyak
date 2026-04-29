@@ -7,7 +7,6 @@ from __future__ import annotations
 
 import time
 from datetime import UTC, datetime
-from urllib.parse import quote_plus
 
 import pandas as pd
 import requests
@@ -17,7 +16,6 @@ from kayak.config import (
     DATA_DIR,
     ENRICHED_CITY_CSV,
     HEADERS,
-    HOTELS_CSV,
     MAX_VALID_HOTELS_PER_CITY,
     MIN_VALID_HOTELS_PER_CITY,
     NOMINATIM_BASE_URL,
@@ -39,7 +37,6 @@ from kayak.scoring import (
     normalize_city_name,
     safe_float,
 )
-
 
 # ── Session ───────────────────────────────────────────────────────────────────
 
@@ -125,7 +122,7 @@ def get_weather_for_city(session: requests.Session, city_row: dict) -> dict:
     if not max_temps or not min_temps:
         raise ValueError(f"No daily weather data for {city_row['city_name']!r}")
 
-    avg_temp   = sum((hi + lo) / 2 for hi, lo in zip(max_temps, min_temps)) / len(max_temps)
+    avg_temp   = sum((hi + lo) / 2 for hi, lo in zip(max_temps, min_temps, strict=False)) / len(max_temps)
     total_rain = sum(v for v in rain_sums if v is not None)
     avg_pop    = (sum(v for v in pop_max if v is not None) / len(pop_max)) if pop_max else 0.0
 
@@ -401,3 +398,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     run_pipeline(run_s3=args.s3, run_rds=args.rds)
+

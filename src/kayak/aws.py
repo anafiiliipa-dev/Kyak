@@ -7,7 +7,6 @@ needed if you use the AWS load steps.
 """
 from __future__ import annotations
 
-import os
 import re
 from pathlib import Path
 from urllib.parse import quote_plus
@@ -16,7 +15,6 @@ import pandas as pd
 
 from kayak.config import (
     AWS_REGION,
-    ENRICHED_CITY_CSV,
     RDS_DB_NAME,
     RDS_HOST,
     RDS_PASSWORD,
@@ -26,10 +24,8 @@ from kayak.config import (
     S3_BUCKET_NAME,
     S3_CLEAN_PREFIX,
     S3_RAW_PREFIX,
-    TOP_HOTELS_CSV,
     logger,
 )
-
 
 # ── Validation ────────────────────────────────────────────────────────────────
 

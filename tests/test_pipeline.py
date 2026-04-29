@@ -6,11 +6,10 @@ No network calls, no AWS, no filesystem writes required.
 """
 from __future__ import annotations
 
-import math
-
 import pandas as pd
 import pytest
 
+from kayak.config import CITY_CORRECTIONS
 from kayak.scoring import (
     build_city_id,
     build_hotel_level_dataset,
@@ -22,8 +21,6 @@ from kayak.scoring import (
     normalize_city_name,
     safe_float,
 )
-from kayak.config import CITY_CORRECTIONS
-
 
 # ── normalize_city_name ───────────────────────────────────────────────────────
 
@@ -133,19 +130,23 @@ class TestIsValidHotelRow:
         assert is_valid_hotel_row(self._valid()) is True
 
     def test_missing_city_id(self):
-        r = self._valid(); r["city_id"] = None
+        r = self._valid()
+        r["city_id"] = None
         assert is_valid_hotel_row(r) is False
 
     def test_missing_hotel_id(self):
-        r = self._valid(); del r["hotel_id"]
+        r = self._valid()
+        del r["hotel_id"]
         assert is_valid_hotel_row(r) is False
 
     def test_none_latitude(self):
-        r = self._valid(); r["hotel_latitude"] = None
+        r = self._valid()
+        r["hotel_latitude"] = None
         assert is_valid_hotel_row(r) is False
 
     def test_empty_hotel_name(self):
-        r = self._valid(); r["hotel_name"] = ""
+        r = self._valid()
+        r["hotel_name"] = ""
         assert is_valid_hotel_row(r) is False
 
     def test_empty_dict(self):
@@ -224,3 +225,4 @@ class TestBuildHotelLevelDataset:
     def test_score_column_present(self):
         df = build_hotel_level_dataset(self._rows())
         assert "hotel_score" in df.columns
+

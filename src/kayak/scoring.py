@@ -11,14 +11,13 @@ import math
 import pandas as pd
 
 from kayak.config import (
+    CITY_CORRECTIONS,
     HOTEL_SCORE_DISTANCE_WEIGHT,
     HOTEL_SCORE_RATING_WEIGHT,
     WEATHER_SCORE_POP_WEIGHT,
     WEATHER_SCORE_RAIN_WEIGHT,
     WEATHER_SCORE_TEMP_WEIGHT,
-    CITY_CORRECTIONS,
 )
-
 
 # ── City helpers ──────────────────────────────────────────────────────────────
 
